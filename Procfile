@@ -1,1 +1,1 @@
-web: gunicorn congo.app:create_app
+web: gunicorn auto_app:create_app
