@@ -1,1 +1,1 @@
-web: gunicorn auto_app:create_app
+web: gunicorn --workers=2 congo.app:app
