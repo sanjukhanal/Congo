@@ -9,33 +9,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <title>Congo: Bookstore</title>
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+        }
+    </style>
 </head>
 <body>
 {% include "nav.html" %}
 <div class="container-fluid">
-<div>
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
       messages %}
-      <div class="row">
-        <div class="col-md-12">
-          {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
-            <a class="close" title="Close" href="#" data-dismiss="alert"
-              >&times;</a
-            >
-            {{ message }}
-          </div>
-          <!-- end .alert -->
-          {% endfor %}
-        </div>
-        <!-- end col-md -->
-      </div>
-      <!-- end row -->
-      {% endif %} {% endwith %}
-</div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            <a class="close" title="Close" href="#" data-dismiss="alert"
+                            >&times;</a
+                            >
+                            {{ message }}
+                        </div>
+                        <!-- end .alert -->
+                    {% endfor %}
+                </div>
+                <!-- end col-md -->
+            </div>
+            <!-- end row -->
+        {% endif %} {% endwith %}
+    </div>
     {% block content %}
     {% endblock %}
 </div>
@@ -46,10 +54,10 @@
 {% block page_js %}
     <script>
         var add_cart_btns = document.getElementsByClassName('add-cart');
-        for(var i = 0; i < add_cart_btns.length; i++) {
+        for (var i = 0; i < add_cart_btns.length; i++) {
             var anchor = add_cart_btns[i];
-            anchor.onclick = function() {
-                 var add_cart_items = document.getElementById('cart-items');
+            anchor.onclick = function () {
+                var add_cart_items = document.getElementById('cart-items');
                 var total_items = parseInt(add_cart_items.innerText);
                 add_cart_items.innerText = (total_items + 1);
             }
