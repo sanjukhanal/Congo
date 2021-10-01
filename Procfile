@@ -1,1 +1,1 @@
-web: gunicorn --workers=2 congo.app:create_app\(\)
+web: gunicorn --workers=2 congo.app:create_app
