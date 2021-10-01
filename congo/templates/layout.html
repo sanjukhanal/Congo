@@ -44,6 +44,17 @@
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
 {% block page_js %}
+    <script>
+        var add_cart_btns = document.getElementsByClassName('add-cart');
+        for(var i = 0; i < add_cart_btns.length; i++) {
+            var anchor = add_cart_btns[i];
+            anchor.onclick = function() {
+                 var add_cart_items = document.getElementById('cart-items');
+                var total_items = parseInt(add_cart_items.innerText);
+                add_cart_items.innerText = (total_items + 1);
+            }
+        }
+    </script>
 {% endblock %}
 </body>
 </html>
