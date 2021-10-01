@@ -10,7 +10,7 @@ from flask import (
 )
 from flask_login import login_required, logout_user, login_user
 
-from books.nyt import BEST_SELLERS
+from congo.books.nyt import BEST_SELLERS
 from congo.extensions import login_manager
 from congo.public.forms import LoginForm
 from congo.user.forms import RegisterForm
