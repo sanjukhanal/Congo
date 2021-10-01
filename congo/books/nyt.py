@@ -1,7 +1,7 @@
 
 from pynytimes import NYTAPI
 
-from settings import NYT_KEY
+from congo.settings import NYT_KEY
 
 
 class BookApi(NYTAPI):
