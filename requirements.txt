@@ -35,3 +35,11 @@ Flask-Caching>=1.7.2
 
 # Environment variable parsing
 environs==9.3.3
+
+# books api
+pynytimes==0.7.0
+
+
+requests~=2.26.0
+alembic~=1.7.1
+orjson~=3.6.3

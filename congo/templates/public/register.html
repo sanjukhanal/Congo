@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container p-3 mt-5">
+        <div class="card shadow">
+
+            <div class="card-body">
+                <h1 class="display-3 card-title">Register</h1>
+                <form id="registerForm" class="form form-register" method="POST" action="" role="form">
+                    {{ form.csrf_token }}
+                    <div class="form-floating mb-3">
+                        {{ form.username(placeholder="Username", class_="form-control") }}
+                        {{ form.username.label }}
+                    </div>
+                    <div class="form-floating mb-3">
+
+                        {{ form.email(placeholder="Email", class_="form-control") }}
+                        {{ form.email.label }}
+                        <small id="emailHelp" class="form-text text-muted small">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-floating mb-3">
+                        {{ form.password(placeholder="Password", class_="form-control") }}
+                        {{ form.password.label }}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {{ form.confirm(placeholder="Password (again)", class_="form-control") }}
+                        {{ form.confirm.label }}
+                    </div>
+                    <p><input class="btn btn-primary" type="submit" value="Register"></p>
+                </form>
+                <p><em>Already registered?</em> Click <a href="/login">here</a> to login.</p>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
