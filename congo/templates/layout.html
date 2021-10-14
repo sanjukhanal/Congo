@@ -19,7 +19,10 @@
     </style>
 </head>
 <body>
-{% include "nav.html" %}
+{% if current_user.is_authenticated %}
+    {% include "nav.html" %}
+{% endif %}
+
 <div class="container-fluid">
     <div>
         {% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -48,17 +51,66 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
-{% block page_js %}
-    <script>
-        var add_cart_btns = document.getElementsByClassName('add-cart');
-        for (var i = 0; i < add_cart_btns.length; i++) {
-            var anchor = add_cart_btns[i];
-            anchor.onclick = function () {
-                var add_cart_items = document.getElementById('cart-items');
-                var total_items = parseInt(add_cart_items.innerText);
-                add_cart_items.innerText = (total_items + 1);
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
             }
         }
+    });
+</script>
+
+{% block page_js %}
+    <script>
+        let current_user_id = null;
+        let cart_id = null;
+
+        function get_or_create_cart() {
+            $.ajax({
+                type: "POST",
+                url: "/cart/get_create",
+                data: {},
+                success: function (data) {
+                    console.log(data)
+                    cart_id = data["data"]["id"]
+                },
+            })
+
+            $.ajax({
+                type: "POST",
+                url: "/users/current_user",
+                data: {},
+                success: function (data) {
+                    console.log(data)
+                    current_user_id = data["data"]["id"]
+                },
+            })
+        }
+        get_or_create_cart();
+        const add_cart_items = $('#cart-items');
+
+        $(".add-cart").on("click", function () {
+            const total_items = parseInt(add_cart_items.text());
+            add_cart_items.text(total_items + 1)
+            const book_id = $(this).data("bookId");
+            $.ajax({
+                type: "POST",
+                url: "/checkout/add_book/"+book_id,
+                data: {},
+                success: function (data) {
+                    console.log(data)
+                    cart_id = data["data"]["id"]
+                },
+            })
+        })
+
     </script>
 {% endblock %}
 </body>

@@ -1,6 +1,6 @@
-
 from pynytimes import NYTAPI
 
+from congo.book.models import Book
 from congo.settings import NYT_KEY
 
 

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="mt-3">
+            <h1 class="lead display-6 border-bottom">Checkout</h1>
+        <div class="">
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <td>#</td>
+                    <td>Book Name</td>
+                    <td>Author</td>
+                    <td>ISBN 13</td>
+                    <td>Price</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in checkouts %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ item.book.title }}</td>
+                        <td>{{ item.book.author }}</td>
+                        <td>{{ item.book.primary_isbn13 }}</td>
+                        <td>{{ item.book.price }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
+

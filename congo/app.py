@@ -4,9 +4,9 @@
 import logging
 import sys
 
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 
-from congo import public, user
+from congo import public, user, admin, cart, checkout, customer, book
 from congo.extensions import (
     bcrypt,
     cache,
@@ -48,6 +48,9 @@ def register_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(user.views.blueprint)
+    app.register_blueprint(book.views.blueprint)
+    app.register_blueprint(checkout.views.blueprint)
+    app.register_blueprint(cart.views.blueprint)
     return None
 
 

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="mt-2">
+        <h1 class="lead display-5 border-bottom">Best Sellers</h1>
+
+        <div class="d-flex align-content-between flex-wrap align-items-stretch">
+            {% for book in books %}
+                <div class="card shadow mx-2 my-3" style="width: 200px">
+                    <img src="{{ book.book_image_url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title small">{{ book.title }}</h5>
+                        <p class="card-text small fw-light">{{ book.description[:50] }} ...</p>
+                        <p class="card-text text-muted small">Author: {{ book.author }}</p>
+                    </div>
+                    <div class="card-footer">
+                         <button class="btn btn-outline-primary btn-sm add-cart"><i class="fa fa-cart-plus"></i></button>
+                    </div>
+                </div>
+
+            {% endfor %}
+            </div>
+    </div>
+{% endblock %}

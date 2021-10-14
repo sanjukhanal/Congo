@@ -1,24 +1,21 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow" style="height: 75px">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Congo</a>
+        <a class="navbar-brand" href="{{ url_for('user.home') }}">Congo</a>
 
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/users">Logged in View</a>
-            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href={{ url_for('user.home') }}>Logged in View</a>#}
+{#            </li>#}
         </ul>
 
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form>
-        <button type="button" class="btn btn-outline-success position-relative "><i class="fas fa-shopping-cart"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-items">0</span>
-        </button>
+        <a class="btn btn-outline-success position-relative m-3"  href={{ url_for('checkout.home') }}><i class="fas fa-shopping-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-items">{{ checkouts|length }}</span>
+        </a>
+        {% if current_user.is_authenticated %}
+            <a type="button" class="btn btn-outline-success position-relative " href={{ url_for('public.logout') }}>Logout</a>
+        {% endif %}
     </div>
 </nav>
