@@ -13,7 +13,7 @@
                         <p class="card-text small fw-light">{{ book.description[:50] }} ...</p>
                         <p class="card-text text-muted small">Author: {{ book.author }}</p>
                     </div>
-                    <div class="card-footer"> Add to Cart
+                    <div class="card-footer"> ${{ book.price }}
                          <button class="btn btn-outline-primary btn-sm add-cart" data-book-id="{{ book.id }}">
                              <i class="fa fa-cart-plus"></i>
                          </button>

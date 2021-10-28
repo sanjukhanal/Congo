@@ -29,7 +29,6 @@ def load_user(user_id):
 @blueprint.route("/login", methods=["GET", "POST"])
 def login():
     """Login Page"""
-
     form = LoginForm()
     if request.method == "POST":
         form = LoginForm(request.form)
@@ -57,7 +56,6 @@ def login():
 
 
 @blueprint.route("/logout/")
-@login_required
 def logout():
     """Logout."""
     logout_user()
@@ -77,9 +75,8 @@ def register():
             password=form.password.data,
             active=True,
         )
-        session["user_id"] = user.get_id()
         flash("Thank you for registering. You can now log in.", "success")
-        return redirect(url_for("user.home"))
+        return redirect(url_for("public.login"))
     else:
         flash_errors(form)
     return render_template("public/register.html", form=form)

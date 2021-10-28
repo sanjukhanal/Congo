@@ -12,6 +12,7 @@
                     <td>Author</td>
                     <td>ISBN 13</td>
                     <td>Price</td>
+                     <td>Action</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,12 +23,33 @@
                         <td>{{ item.book.author }}</td>
                         <td>{{ item.book.primary_isbn13 }}</td>
                         <td>{{ item.book.price }}</td>
+                        <td><a class="btn btn-outline-danger" href="/checkout/remove_book/{{ item.id }}">Delete</a></td>
                     </tr>
                 {% endfor %}
+                <tr>
+                    <td colspan="4">Total</td>
+                    <td >{{ total }}</td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
+{% endblock %}
+{% block page_js %}
+{#    <script type="text/javascript">#}
+{#        $(".delete").on("click", function (event){#}
+{#            const checkout_id = $(this).data("checkoutId");#}
+{#             $.ajax({#}
+{#                type: "POST",#}
+{#                url: "/checkout/remove_book/"+checkout_id,#}
+{#                data: {},#}
+{#                success: function (data) {#}
+{#                    #}
+{#                },#}
+{#            })#}
+{#        })#}
+{#    </script>#}
 {% endblock %}
 

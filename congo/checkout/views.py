@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, render_template
+from flask import Blueprint, jsonify, session, render_template, redirect, url_for
 from flask_login import login_required, current_user
 
 from .models import Checkout
@@ -32,11 +32,24 @@ def add_book(book_id):
     }})
 
 
+@blueprint.route("/remove_book/<int:checkout_id>", methods=['GET', 'POST'])
+@login_required
+def remove_book(checkout_id):
+    cart_id = session.get("cart_id")
+    if cart_id is not None:
+        cart = Cart.create(
+            user_id=current_user.id
+        )
+        checkout = Checkout.get_by_id(checkout_id)
+        checkout.delete()
+        return redirect(url_for('checkout.home'))
+
+
 @blueprint.route("/", methods=['GET', 'POST'])
 def home():
     cart_id = session.get("cart_id")
     if cart_id:
         cart = Cart.get_by_id(cart_id)
         checkouts = cart.checkouts
-        return render_template("users/checkout.html", checkouts=checkouts)
-
+        total = sum([item.book.price for item in checkouts])
+        return render_template("users/checkout.html", checkouts=checkouts, total=total)

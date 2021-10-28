@@ -5,9 +5,16 @@ from flask_login import login_required, current_user
 
 from congo.book.models import Book
 from congo.cart.models import Cart
-from congo.checkout.models import Checkout
+from congo.extensions import login_manager
+from congo.user.models import User
 
-blueprint = Blueprint("user", __name__, url_prefix="/users", static_folder="../static")
+blueprint = Blueprint("user", __name__, url_prefix="/user", static_folder="../static")
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """Load user by ID."""
+    return User.get_by_id(int(user_id))
 
 
 @blueprint.route("/")
