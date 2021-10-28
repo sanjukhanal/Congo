@@ -57,7 +57,7 @@ def login():
 
 @blueprint.route("/logout/")
 def logout():
-    """Logout."""
+    """Functionality to Logout."""
     logout_user()
     session.clear()
     flash("You are logged out.", "info")
