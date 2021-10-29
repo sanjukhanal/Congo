@@ -37,7 +37,7 @@ def login():
             flash("You are logged in.", "success")
             session["user_id"] = form.user.get_id()
             if form.user.is_admin:
-                redirect_url = request.args.get("next") or url_for("admin.home")
+                redirect_url = url_for("admin.home")
             else:
                 redirect_url = request.args.get("next") or url_for("user.home")
             return redirect(redirect_url)

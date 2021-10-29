@@ -3,8 +3,31 @@
     <div class="mt-2">
         <h1 class="lead display-5 border-bottom">Admin Home</h1>
 
-        <div class="d-flex align-content-between flex-wrap align-items-stretch">
-
+        <div class="x">
+         <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <td>#</td>
+                    <td>Book Name</td>
+                    <td>Author</td>
+                    <td>ISBN 13</td>
+                    <td>Price</td>
+                </tr>
+                </thead>
+                <tbody>
+            {%  for checkout in checkouts %}
+                {%  for item in checkout %}
+                    <tr>
+                        <td>{{ item.cart_id }}</td>
+                        <td>{{ item.book.title }}</td>
+                        <td>{{ item.book.author }}</td>
+                        <td>{{ item.book.primary_isbn13 }}</td>
+                        <td>{{ "$%.2f"|format(item.book.price) }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

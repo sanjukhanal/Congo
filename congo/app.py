@@ -6,7 +6,7 @@ import sys
 
 from flask import Flask, render_template
 
-from congo import public, user, cart, checkout, book
+from congo import public, user, cart, checkout, book, admin
 from congo.extensions import (
     bcrypt,
     cache,
@@ -51,6 +51,7 @@ def register_blueprints(app):
     app.register_blueprint(book.views.blueprint)
     app.register_blueprint(checkout.views.blueprint)
     app.register_blueprint(cart.views.blueprint)
+    app.register_blueprint(admin.views.blueprint)
     return None
 
 

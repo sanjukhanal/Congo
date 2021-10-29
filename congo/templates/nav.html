@@ -11,11 +11,13 @@
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form>
+    {% if not current_user.is_admin %}
         <a class="btn btn-outline-success position-relative m-3" href={{ url_for('checkout.home') }}><i
                 class="fas fa-shopping-cart"></i>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                   id="cart-items">{{ checkouts|length }}</span>
         </a>
+    {% endif %}
         {% if current_user.is_authenticated %}
             <a type="button" class="btn btn-outline-success position-relative " href={{ url_for('public.logout') }}>Logout</a>
         {% endif %}
