@@ -52,4 +52,19 @@ def home():
         cart = Cart.get_by_id(cart_id)
         checkouts = cart.checkouts
         total = sum([item.book.price for item in checkouts])
-        return render_template("users/checkout.html", checkouts=checkouts, total=total)
+        return render_template("checkout/home.html", checkouts=checkouts, total=total)
+    return redirect(url_for('user.home'))
+
+
+@blueprint.route("/submit", methods=['GET'])
+@login_required
+def submit():
+    cart_id = session.get("cart_id")
+    if cart_id:
+        cart = Cart.get_by_id(cart_id)
+        cart.update({"is_submitted": True})
+        checkouts = cart.checkouts
+        total = sum([item.book.price for item in checkouts])
+        session.pop("cart_id")
+        return render_template("checkout/thank_you.html", checkouts=checkouts, total=total)
+    return redirect(url_for('user.home'))

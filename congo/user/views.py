@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """User views."""
 from flask import Blueprint, render_template, jsonify, session
-from flask_login import login_required, current_user
+from flask_login import login_required
 
 from congo.book.models import Book
 from congo.cart.models import Cart
@@ -34,8 +34,11 @@ def home():
 @login_required
 def current_logged_user():
     """List members."""
-    return jsonify({
-        "data": {
-            "id": current_user.id
-        }
-    })
+    user_id = session.get("user_id", None)
+    if user_id:
+        return jsonify({
+            "data": {
+                "id": user_id
+            }
+        })
+    return jsonify({})

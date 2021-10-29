@@ -4,9 +4,9 @@
 import logging
 import sys
 
-from flask import Flask, render_template, session
+from flask import Flask, render_template
 
-from congo import public, user, admin, cart, checkout, customer, book
+from congo import public, user, cart, checkout, book
 from congo.extensions import (
     bcrypt,
     cache,
@@ -65,7 +65,7 @@ def register_shellcontext(app):
 
     def shell_context():
         """Shell context objects."""
-        return {"db": db, "User": user.models.User} # noqa
+        return {"db": db, "User": user.models.User}  # noqa
 
     app.shell_context_processor(shell_context)
 
@@ -77,7 +77,7 @@ def register_errorhandlers(app):
         """Render error template."""
         # If a HTTPException, pull the `code` attribute; default to 500
         error_code: int = getattr(error, "code", 500)
-        return render_template(f"{error_code}.html"), error_code # noqa
+        return render_template(f"{error_code}.html"), error_code  # noqa
 
     for errcode in [401, 404, 500]:
         app.errorhandler(errcode)(render_error)

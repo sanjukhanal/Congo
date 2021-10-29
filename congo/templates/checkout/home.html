@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="mt-3">
-            <h1 class="lead display-6 border-bottom">Checkout</h1>
+        <h1 class="lead display-6 border-bottom">Checkout</h1>
         <div class="">
             <table class="table">
                 <thead class="table-light">
@@ -12,7 +12,7 @@
                     <td>Author</td>
                     <td>ISBN 13</td>
                     <td>Price</td>
-                     <td>Action</td>
+                    <td>Action</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,34 +22,24 @@
                         <td>{{ item.book.title }}</td>
                         <td>{{ item.book.author }}</td>
                         <td>{{ item.book.primary_isbn13 }}</td>
-                        <td>{{ item.book.price }}</td>
+                        <td>{{ "$%.2f"|format(item.book.price) }}</td>
                         <td><a class="btn btn-outline-danger" href="/checkout/remove_book/{{ item.id }}">Delete</a></td>
                     </tr>
                 {% endfor %}
                 <tr>
                     <td colspan="4">Total</td>
-                    <td >{{ total }}</td>
+                    <td>{{ "$%.2f"|format(total) }}</td>
                     <td></td>
                 </tr>
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                <a type="button" class="btn btn-outline-success" href="{{ url_for('checkout.submit') }}">Submit</a>
+            </div>
         </div>
 
     </div>
 {% endblock %}
 {% block page_js %}
-{#    <script type="text/javascript">#}
-{#        $(".delete").on("click", function (event){#}
-{#            const checkout_id = $(this).data("checkoutId");#}
-{#             $.ajax({#}
-{#                type: "POST",#}
-{#                url: "/checkout/remove_book/"+checkout_id,#}
-{#                data: {},#}
-{#                success: function (data) {#}
-{#                    #}
-{#                },#}
-{#            })#}
-{#        })#}
-{#    </script>#}
 {% endblock %}
 

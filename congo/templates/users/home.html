@@ -1,27 +1,72 @@
-
 {% extends "layout.html" %}
 {% block content %}
-      <div class="mt-2">
+    <div class="mt-2">
         <h3 class="lead display-6 border-bottom">Best Sellers: </h3>
 
         <div class="d-flex align-content-between flex-wrap align-items-stretch">
             {% for book in books %}
                 <div class="card shadow mx-2 my-3" style="width: 200px">
-                    <img src="{{ book.book_image_url }}" class="card-img-top" alt="...">
+                    <a href="{{ url_for('book.book_detail', book_id=book.id) }}">
+                        <img src="{{ book.book_image_url }}" class="card-img-top" alt="..."
+                             onerror="this.onerror=null; this.src='/static/book.svg'">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title small">{{ book.title }}</h5>
                         <p class="card-text small fw-light">{{ book.description[:50] }} ...</p>
                         <p class="card-text text-muted small">Author: {{ book.author }}</p>
                     </div>
                     <div class="card-footer"> ${{ book.price }}
-                         <button class="btn btn-outline-primary btn-sm add-cart" data-book-id="{{ book.id }}">
-                             <i class="fa fa-cart-plus"></i>
-                         </button>
+                        <button class="btn btn-outline-primary btn-sm add-cart" data-book-id="{{ book.id }}">
+                            <i class="fa fa-cart-plus"></i>
+                        </button>
                     </div>
                 </div>
 
             {% endfor %}
-            </div>
+        </div>
     </div>
+{% endblock %}
+{% block page_js %}
+    <script type="text/javascript">
+        let current_user_id = null;
+        let cart_id = null;
+
+        function get_or_create_cart() {
+            $.ajax({
+                type: "POST",
+                url: "/cart/get_create",
+                data: {},
+                success: function (data) {
+                    cart_id = data["data"]["id"]
+                },
+            })
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url_for('user.current_logged_user') }}",
+                data: {},
+                success: function (data) {
+                    current_user_id = data["data"]["id"]
+                },
+            })
+        }
+
+        get_or_create_cart();
+        const add_cart_items = $('#cart-items');
+
+        $(".add-cart").on("click", function () {
+            const total_items = parseInt(add_cart_items.text());
+            add_cart_items.text(total_items + 1)
+            const book_id = $(this).data("bookId");
+            $.ajax({
+                type: "POST",
+                url: "/checkout/add_book/" + book_id,
+                data: {},
+                success: function (data) {
+                    cart_id = data["data"]["id"]
+                },
+            })
+        })
+    </script>
 {% endblock %}
 

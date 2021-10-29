@@ -69,46 +69,7 @@
 
 {% block page_js %}
     <script>
-        let current_user_id = null;
-        let cart_id = null;
 
-        function get_or_create_cart() {
-            $.ajax({
-                type: "POST",
-                url: "/cart/get_create",
-                data: {},
-                success: function (data) {
-                    console.log(data)
-                    cart_id = data["data"]["id"]
-                },
-            })
-
-            $.ajax({
-                type: "POST",
-                url: "/users/current_user",
-                data: {},
-                success: function (data) {
-                    console.log(data)
-                    current_user_id = data["data"]["id"]
-                },
-            })
-        }
-        get_or_create_cart();
-        const add_cart_items = $('#cart-items');
-
-        $(".add-cart").on("click", function () {
-            const total_items = parseInt(add_cart_items.text());
-            add_cart_items.text(total_items + 1)
-            const book_id = $(this).data("bookId");
-            $.ajax({
-                type: "POST",
-                url: "/checkout/add_book/"+book_id,
-                data: {},
-                success: function (data) {
-                    cart_id = data["data"]["id"]
-                },
-            })
-        })
 
     </script>
 {% endblock %}

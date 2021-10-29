@@ -8,7 +8,7 @@ from flask import (
     request,
     url_for, session,
 )
-from flask_login import login_required, logout_user, login_user
+from flask_login import logout_user, login_user
 
 from congo.extensions import login_manager
 from congo.public.forms import LoginForm

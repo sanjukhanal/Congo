@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Book Detail</h1>
+        <div class="card shadow mx-2 my-3">
+            <div class="">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="{{ book.book_image_url }}" class="card-img-top" alt="..."
+                             onerror="this.onerror=null; this.src='/static/book.svg'">
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 m-2">
+                            <h5 class="card-title ">{{ book.title }}</h5>
+                            <p class="card-text ">Description: {{ book.description }}</p>
+                            <p class="card-text ">Author: {{ book.author }}</p>
+                            <p class="card-text ">Contributor: {{ book.contributor }}</p>
+                            <p class="card-text ">ISBN 13: {{ book.primary_isbn13 }}</p>
+                            <p class="card-text ">ISBN 10: {{ book.primary_isbn10 }}</p>
+                            <p class="card-text ">Publisher: {{ book.publisher }}</p>
+                            <p class="card-text ">Price: {{ book.price }}</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
