@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required
 
+from .forms import SearchForm
 from .models import Book
 
 blueprint = Blueprint("book", __name__, url_prefix="/book", static_folder="../static")

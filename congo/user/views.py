@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """User views."""
-from flask import Blueprint, render_template, jsonify, session
+from flask import Blueprint, render_template, jsonify, session, request
 from flask_login import login_required
 
+from congo.book.forms import SearchForm
 from congo.book.models import Book
 from congo.cart.models import Cart
 from congo.extensions import login_manager
@@ -21,7 +22,11 @@ def load_user(user_id):
 @login_required
 def home():
     """List members."""
-    books = Book.query.all()
+    query_string = request.args.get("query_string", None)
+
+    form = SearchForm(query_string=query_string)
+
+    books = form.books
     cart_id = session.get("cart_id")
     checkouts = []
     if cart_id:
