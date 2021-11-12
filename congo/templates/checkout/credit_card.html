@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="mt-3">
+        <div class="mt-2">
+            <h1 class="lead display-5 border-bottom">Checkout</h1>
+
+        </div>
+        <div class="container">
+            <form method="post"> {{ form.csrf_token }}
+                <div class="mb-3">
+                    {{ form.first_name.label }}
+                    {{ form.first_name(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.last_name.label }}
+                    {{ form.last_name(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.address.label }}
+                    {{ form.address(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.zipcode.label }}
+                    {{ form.zipcode(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.credit_card_number.label }}
+                    {{ form.credit_card_number(class="form-control") }}
+                </div>
+                <div class="mb-3">
+                    {{ form.credit_card_ccv.label }}
+                    {{ form.credit_card_ccv(class="form-control") }}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

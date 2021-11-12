@@ -3,26 +3,38 @@
     <div class="mt-2">
         <h1 class="lead display-5 border-bottom">Admin Home</h1>
 
-        <div class="x">
+        <div class="container">
+        <div class="mb-3">
+            <form method="post" >{{ form.csrf_token }}
+                <div class="mb-3">
+                {{ form.reports_for.label(class="form-label") }}
+                {{ form.reports_for(class="form-select")}}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Select</button>
+            </form>
+
+        </div>
          <table class="table">
                 <thead class="table-light">
                 <tr>
-                    <td>#</td>
                     <td>Book Name</td>
                     <td>Author</td>
                     <td>ISBN 13</td>
+                    <td>Cart ID</td>
                     <td>Price</td>
                 </tr>
                 </thead>
                 <tbody>
-            {%  for checkout in checkouts %}
+            {%  for  checkout in checkouts %}
                 {%  for item in checkout %}
                     <tr>
-                        <td>{{ item.cart_id }}</td>
                         <td>{{ item.book.title }}</td>
                         <td>{{ item.book.author }}</td>
                         <td>{{ item.book.primary_isbn13 }}</td>
+                        <td>{{ item.cart_id }}</td>
                         <td>{{ "$%.2f"|format(item.book.price) }}</td>
+
                     </tr>
                 {% endfor %}
             {% endfor %}

@@ -31,6 +31,7 @@ def login():
     """Login Page"""
     form = LoginForm()
     if request.method == "POST":
+        session.clear()
         form = LoginForm(request.form)
         if form.validate_on_submit():
             login_user(form.user)
